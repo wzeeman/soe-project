@@ -3,6 +3,7 @@
 from SOE_main_test import read_scatter_data
 import matplotlib.pyplot as plt
 from pathlib import Path
+import numpy as np
 
 import pyximport
 pyximport.install(setup_args={
@@ -19,7 +20,7 @@ def main():
 
     # Set recon parameters.
     nX = 50;  nZ = 50 # pixel size in the X and Z direction of the
-    # reconstructionÄnote: it's assumed the pixel pitch is 1 mm.
+    # reconstruction. Note: it's assumed the pixel pitch is 1 mm.
 
     sparseMat = utils.genSparseMat(allDoubles, nX, nZ, 100000)
 
