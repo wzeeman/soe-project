@@ -10,6 +10,24 @@ pyximport.install(setup_args={
     "include_dirs":np.get_include()}, reload_support=True)
 import SOE_functions_swp as utils
 
+def plot_recon(ax, data):
+    """Plot reconstructed image.
+    
+    Parameters
+    ----------
+    ax : matplotlib.Axes
+        The axes to draw to
+
+    data : np.ndarray
+        ndarray output from utils.normSOEFastG() to plot
+
+    Returns
+    -------
+    out : list
+        list of artists
+    """
+    ax.imshow(data)
+
 def main():
     print ('--- Running parameter_test.py ---')
 
@@ -24,11 +42,11 @@ def main():
 
     sparseMat = utils.genSparseMat(allDoubles, nX, nZ, 100000)
 
-    rcon = utils.normSOEFastG(sparseMat, nX, nZ, 10, 100)
-
-    # view final image
-    plt.imshow(rcon)
-    plt.show()
+    for beta in range(1, 1001):
+        rcon = utils.normSOEFastG(sparseMat, nX, nZ, 10, 100, beta)
+        fig, ax = plt.subplots(1, 1)
+        plot_recon(ax, rcon)
+        plt.savefig('rcon%d' % beta, bbox_inches='tight')
 
 if __name__ == "__main__":
 
