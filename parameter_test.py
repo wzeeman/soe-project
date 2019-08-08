@@ -41,12 +41,14 @@ def main():
     # reconstruction. Note: it's assumed the pixel pitch is 1 mm.
 
     sparseMat = utils.genSparseMat(allDoubles, nX, nZ, 100000)
+    fig, ax = plt.subplots(1, 1)
 
     for beta in range(1, 1001):
+        print('beta = %d' % beta)
         rcon = utils.normSOEFastG(sparseMat, nX, nZ, 10, 100, beta)
-        fig, ax = plt.subplots(1, 1)
         plot_recon(ax, rcon)
-        plt.savefig('rcon%d' % beta, bbox_inches='tight')
+        fig.savefig('beta_test/rcon%04d' % beta, bbox_inches='tight')
+        fig.clear()
 
 if __name__ == "__main__":
 
